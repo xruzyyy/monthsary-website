@@ -1,0 +1,8 @@
+*
+!private/
+private/*
+!private/anniversary/
+private/anniversary/*
+!private/anniversary/surprise-placeholder.svg
+!public/
+!.gitignore
