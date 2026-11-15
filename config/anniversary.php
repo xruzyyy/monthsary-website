@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'pin_hash' => env('ANNIVERSARY_PIN_HASH'),
+    'pin' => env('ANNIVERSARY_PIN'),
 
     'photo_path' => env('ANNIVERSARY_PHOTO_PATH', 'anniversary/surprise-placeholder.svg'),
 

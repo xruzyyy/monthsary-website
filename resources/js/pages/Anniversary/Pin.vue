@@ -125,8 +125,7 @@ function submitPin(): void {
                     class="text-center text-sm leading-6 text-[#9c7180]"
                     role="status"
                 >
-                    This surprise is being prepared. The server needs its
-                    private PIN hash before it can be opened.
+                    This surprise is being prepared. Come back soon, my love.
                 </p>
                 <p
                     v-else

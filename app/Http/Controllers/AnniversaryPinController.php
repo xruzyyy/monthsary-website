@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Services\AnniversaryPuzzle;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
-use RuntimeException;
 
 class AnniversaryPinController extends Controller
 {
@@ -19,9 +17,10 @@ class AnniversaryPinController extends Controller
             return to_route('anniversary.puzzle');
         }
 
+        $expectedPin = config('anniversary.pin');
+
         return Inertia::render('Anniversary/Pin', [
-            'isConfigured' => is_string(config('anniversary.pin_hash'))
-                && config('anniversary.pin_hash') !== '',
+            'isConfigured' => is_string($expectedPin) && $expectedPin !== '',
         ]);
     }
 
@@ -36,25 +35,15 @@ class AnniversaryPinController extends Controller
         }
 
         $validated = $validator->validated();
-        $pinHash = config('anniversary.pin_hash');
+        $expectedPin = config('anniversary.pin');
 
-        if (! is_string($pinHash) || $pinHash === '') {
+        if (! is_string($expectedPin) || $expectedPin === '') {
             return back()->withErrors([
-                'pin' => 'This experience is still being prepared. Set ANNIVERSARY_PIN_HASH in the server environment.',
+                'pin' => 'This surprise is still being prepared. Please try again soon.',
             ]);
         }
 
-        try {
-            $isValidPin = Hash::check((string) $validated['pin'], $pinHash);
-        } catch (RuntimeException $exception) {
-            report($exception);
-
-            return back()->withErrors([
-                'pin' => 'This experience is temporarily unavailable. Please check the server PIN configuration.',
-            ]);
-        }
-
-        if (! $isValidPin) {
+        if (! hash_equals($expectedPin, (string) $validated['pin'])) {
             return back()->withErrors([
                 'pin' => 'That code does not match our special date. Try again, my love.',
             ]);
