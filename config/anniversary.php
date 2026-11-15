@@ -3,7 +3,7 @@
 return [
     'pin' => env('ANNIVERSARY_PIN'),
 
-    'photo_path' => env('ANNIVERSARY_PHOTO_PATH', 'anniversary/surprise-placeholder.svg'),
+    'photo_path' => env('ANNIVERSARY_PHOTO_PATH', 'anniversary/our-journey.jpg'),
 
     'letter' => [
         'greeting' => 'To my Mahal,',

@@ -55,6 +55,8 @@ it('does not return gallery files outside the discovered image list', function (
 });
 
 it('renders the configured letter after the puzzle is complete', function () {
+    Storage::fake('local');
+
     $this->withSession([
         AnniversaryPuzzle::PIN_VERIFIED_SESSION_KEY => true,
         AnniversaryPuzzle::COMPLETED_SESSION_KEY => true,
